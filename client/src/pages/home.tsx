@@ -4,7 +4,7 @@ import { useTimerLogic, useNextMidnightCountdown } from "@/hooks/use-timer-logic
 import { LayoutShell } from "@/components/layout-shell";
 import { TimerDisplay } from "@/components/timer-display";
 import { CompletionModal } from "@/components/completion-modal";
-import logoUrl from "@assets/ChatGPT_Image_Jan_15,_2026,_07_30_19_PM_1768523514876.png";
+import logoUrl from "@assets/ParentPresents_Best_Logo_(1)_1768523932340.png";
 
 export default function Home() {
   const { 
