@@ -20,7 +20,8 @@ export function CompletionModal({ isOpen, onClose, date }: CompletionModalProps)
       try {
         await navigator.share({
           title: 'DailyHold',
-          text: text
+          text: text,
+          url: 'https://www.dailyhold.co'
         });
       } catch (err) {
         console.log('Share cancelled');
