@@ -74,11 +74,6 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="grid grid-cols-3 gap-8 w-full max-w-xs pt-8 border-t border-primary/10">
-                <Stat label="Focus" value="High" />
-                <Stat label="Time" value="60s" />
-                <Stat label="Goal" value="Daily" />
-              </div>
             </motion.div>
           ) : (
             <motion.div
@@ -128,14 +123,5 @@ export default function Home() {
         date={completionDate}
       />
     </>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="text-center">
-      <div className="text-xs uppercase tracking-wider text-primary/40 mb-1 font-bold">{label}</div>
-      <div className="font-display font-bold text-primary">{value}</div>
-    </div>
   );
 }
