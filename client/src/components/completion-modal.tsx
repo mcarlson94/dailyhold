@@ -14,7 +14,7 @@ export function CompletionModal({ isOpen, onClose, date }: CompletionModalProps)
   const formattedDate = date ? format(date, "M/d") : "";
 
   const handleShare = async () => {
-    const text = `DailyHold ${formattedDate}\n✅\nwww.dailyhold.co`;
+    const text = `DailyHold ${formattedDate}\n✅`;
     
     if (navigator.share) {
       try {
