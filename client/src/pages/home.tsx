@@ -86,7 +86,7 @@ export default function Home() {
               <motion.img 
                 src={logoUrl}
                 alt="Daily Hold"
-                className="w-24 mb-4 opacity-80"
+                className="w-32 mb-4 opacity-80"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 0.8, y: 0 }}
               />
