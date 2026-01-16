@@ -9,9 +9,11 @@ export function TimerDisplay({ seconds, total }: TimerDisplayProps) {
   const progress = ((total - seconds) / total) * 100;
   
   return (
-    <div className="relative flex flex-col items-center justify-center pt-4 pb-12">
-      {/* Background Circle Track */}
-      <svg className="absolute w-80 h-80 -rotate-90 transform" viewBox="0 0 100 100">
+    <div className="flex flex-col items-center">
+      {/* Timer Circle Container */}
+      <div className="relative w-80 h-80 flex items-center justify-center">
+        {/* Background Circle Track */}
+        <svg className="absolute inset-0 -rotate-90 transform" viewBox="0 0 100 100">
         <circle
           cx="50"
           cy="50"
@@ -35,17 +37,18 @@ export function TimerDisplay({ seconds, total }: TimerDisplayProps) {
           strokeLinecap="round"
           className="text-primary"
         />
-      </svg>
+        </svg>
 
-      {/* Number Display */}
-      <motion.div 
-        key={seconds}
-        initial={{ opacity: 0.5, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="text-[8rem] font-bold font-timer text-primary leading-none tracking-tighter z-10"
-      >
-        {seconds}
-      </motion.div>
+        {/* Number Display */}
+        <motion.div 
+          key={seconds}
+          initial={{ opacity: 0.5, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-[8rem] font-bold font-timer text-primary leading-none tracking-tighter z-10"
+        >
+          {seconds}
+        </motion.div>
+      </div>
       <span className="text-primary/60 font-medium uppercase tracking-widest mt-4">Seconds</span>
     </div>
   );
