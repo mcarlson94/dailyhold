@@ -14,12 +14,12 @@ export function LayoutShell({ children, variant = "default" }: LayoutShellProps)
 
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center justify-center w-full max-w-md mx-auto px-6 relative z-10 pb-12">
+      <main className="flex-1 flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 relative z-10">
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="w-full p-4 text-center text-xs text-primary/40 pb-safe">
+      <footer className="w-full py-2 text-center text-xs text-primary/40 pb-safe shrink-0">
         © {new Date().getFullYear()} DailyHold.co
       </footer>
     </div>

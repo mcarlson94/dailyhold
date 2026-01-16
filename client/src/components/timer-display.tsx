@@ -11,7 +11,7 @@ export function TimerDisplay({ seconds, total }: TimerDisplayProps) {
   return (
     <div className="flex flex-col items-center">
       {/* Timer Circle Container */}
-      <div className="relative w-80 h-80 flex items-center justify-center">
+      <div className="relative w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center">
         {/* Background Circle Track */}
         <svg className="absolute inset-0 -rotate-90 transform" viewBox="0 0 100 100">
         <circle
@@ -44,12 +44,12 @@ export function TimerDisplay({ seconds, total }: TimerDisplayProps) {
           key={seconds}
           initial={{ opacity: 0.5, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-[8rem] font-bold font-timer text-primary leading-none tracking-tighter z-10"
+          className="text-6xl sm:text-7xl font-bold font-timer text-primary leading-none tracking-tighter z-10"
         >
           {seconds}
         </motion.div>
       </div>
-      <span className="text-primary/60 font-medium uppercase tracking-widest mt-4">Seconds</span>
+      <span className="text-primary/60 font-medium uppercase tracking-widest mt-2 text-sm">Seconds</span>
     </div>
   );
 }

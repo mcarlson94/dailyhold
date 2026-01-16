@@ -86,7 +86,7 @@ export default function Home() {
               <motion.img 
                 src={logoUrl}
                 alt="Daily Hold"
-                className="w-32 mb-8 opacity-80"
+                className="w-24 mb-4 opacity-80"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 0.8, y: 0 }}
               />
@@ -95,7 +95,7 @@ export default function Home() {
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-2xl font-display font-medium text-primary/80 relative z-20 mb-4"
+                className="text-xl font-display font-medium text-primary/80 relative z-20 mb-2"
               >
                 Hold...
               </motion.p>
@@ -107,7 +107,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
                 onClick={handleGiveUp}
-                className="mt-8 flex items-center gap-2 px-6 py-3 rounded-xl text-primary/50 hover:text-destructive hover:bg-destructive/5 transition-colors text-sm font-medium tracking-wide uppercase"
+                className="mt-4 flex items-center gap-2 px-6 py-2 rounded-xl text-primary/50 hover:text-destructive hover:bg-destructive/5 transition-colors text-sm font-medium tracking-wide uppercase"
               >
                 <XCircle className="w-5 h-5" />
                 Give Up
