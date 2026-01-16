@@ -14,14 +14,14 @@ export function CompletionModal({ isOpen, onClose, date }: CompletionModalProps)
   const formattedDate = date ? format(date, "M/d") : "";
 
   const handleShare = async () => {
-    const text = `DailyHold ${formattedDate}\n✅\ndailyhold.co`;
+    const text = `DailyHold ${formattedDate}\n✅\nwww.dailyhold.co`;
     
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'DailyHold Completed',
           text: text,
-          url: 'https://dailyhold.co'
+          url: 'https://www.dailyhold.co'
         });
       } catch (err) {
         console.log('Share cancelled');
