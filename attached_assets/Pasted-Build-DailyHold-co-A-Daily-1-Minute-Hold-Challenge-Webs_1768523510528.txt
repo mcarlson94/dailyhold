@@ -1,0 +1,73 @@
+Build DailyHold.co - A Daily 1-Minute Hold Challenge Website
+Create a simple, mobile-friendly website called DailyHold.co with the following features:
+Landing Page:
+
+Clean, minimalist design with light blue/gray background (#d4dfe6 or similar)
+Center-aligned content
+Logo at top: Use the "Daily Hold" logo featuring:
+
+Italic dark green text "Daily Hold"
+Stopwatch icon integrated into the design (top right of text)
+Silhouette of person in plank position below the text
+All elements in dark green (#2d5446 or similar)
+
+
+Large "START" button centered below logo (dark green with white text, rounded pill shape)
+
+Timer Functionality:
+
+When user clicks START, immediately begin a 60-second countdown timer
+Display the timer prominently in the center of the screen (large font, dark green)
+Timer should count down from 60 to 0 in seconds format (e.g., "60", "59", "58"... "0")
+Show "Hold..." text above the timer
+Keep logo visible but smaller at top of screen during countdown
+Option to cancel/stop if user needs to quit
+
+Completion Modal:
+
+When timer reaches 0, display a modal popup overlay (similar to DailyTens)
+Modal should have dark green background with white text
+Display at top: "DailyHold [current date in M/D format]" (e.g., "DailyHold 1/15" for January 15th)
+Large green checkmark ✅ emoji centered below
+Text: "Share to see how your friends and family do!"
+Large "SHARE" button at bottom (dark color with white text)
+Small X button in top right corner to close modal
+Display countdown timer showing time until next daily challenge (e.g., "New hold in: HH:MM:SS")
+
+Share Functionality:
+
+When SHARE button clicked, use Web Share API (or fallback to clipboard copy)
+Share text format (use TODAY'S ACTUAL DATE in M/D format):
+
+  DailyHold 1/15
+  ✅
+  
+  dailyhold.co
+IMPORTANT: The date (1/15) should be dynamically generated as today's date in M/D format (January 15 = 1/15, January 28 = 1/28, February 3 = 2/3, etc.)
+Logo Design Requirements:
+
+Create the logo using SVG or CSS for the plank silhouette and stopwatch
+Dark green color (#2d5446) for all logo elements
+Italic, bold font for "Daily Hold" text
+Stopwatch icon positioned at top right of text with curved line
+Person in plank position below, showing proper form
+Logo should be responsive and scale well on mobile
+
+Technical Requirements:
+
+Vanilla JavaScript (no frameworks needed)
+Mobile-responsive design
+Works on iOS Safari
+Store completion in localStorage to prevent multiple completions per day
+Calculate date-based resets (new challenge available at midnight)
+Use JavaScript Date object to get current date for display and sharing
+
+Design Notes:
+
+Light blue/gray background: #d4dfe6
+Dark green accents: #2d5446
+Clean, modern typography
+Smooth animations/transitions for modal appearance
+Mobile-first design approach
+
+Please build this as a single-page application with HTML, CSS, and JavaScript. Include the logo as described or request the logo image file if needed.
