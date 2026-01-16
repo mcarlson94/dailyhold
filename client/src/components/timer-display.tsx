@@ -9,7 +9,7 @@ export function TimerDisplay({ seconds, total }: TimerDisplayProps) {
   const progress = ((total - seconds) / total) * 100;
   
   return (
-    <div className="relative flex flex-col items-center justify-center py-12">
+    <div className="relative flex flex-col items-center justify-center pt-4 pb-12">
       {/* Background Circle Track */}
       <svg className="absolute w-80 h-80 -rotate-90 transform" viewBox="0 0 100 100">
         <circle

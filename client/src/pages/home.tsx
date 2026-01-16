@@ -95,7 +95,7 @@ export default function Home() {
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-2xl font-display font-medium text-primary/80"
+                className="text-2xl font-display font-medium text-primary/80 relative z-20 mb-4"
               >
                 Hold...
               </motion.p>
