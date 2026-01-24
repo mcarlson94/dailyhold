@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { differenceInSeconds, startOfTomorrow, isSameDay, parseISO } from 'date-fns';
 import confetti from 'canvas-confetti';
+import { useWakeLock } from './use-wake-lock';
 
 const STORAGE_KEY = 'dailyHold_lastCompleted';
 const DURATION = 60; // seconds
@@ -11,6 +12,7 @@ export function useTimerLogic() {
   const [status, setStatus] = useState<TimerStatus>('idle');
   const [timeLeft, setTimeLeft] = useState(DURATION);
   const [completionDate, setCompletionDate] = useState<Date | null>(null);
+  const { requestWakeLock, releaseWakeLock } = useWakeLock();
 
   // Check initial state from local storage
   useEffect(() => {
@@ -39,17 +41,21 @@ export function useTimerLogic() {
     return () => window.clearInterval(interval);
   }, [status, timeLeft]);
 
-  const handleStart = () => {
+  const handleStart = async () => {
+    await requestWakeLock();
     setStatus('running');
     setTimeLeft(DURATION);
   };
 
-  const handleGiveUp = () => {
+  const handleGiveUp = async () => {
+    await releaseWakeLock();
     setStatus('idle');
     setTimeLeft(DURATION);
   };
 
-  const handleComplete = useCallback(() => {
+  const handleComplete = useCallback(async () => {
+    await releaseWakeLock();
+    
     const now = new Date();
     localStorage.setItem(STORAGE_KEY, now.toISOString());
     setCompletionDate(now);
@@ -63,7 +69,7 @@ export function useTimerLogic() {
       colors: ['#2d5446', '#ffffff', '#3e6b5a'],
       disableForReducedMotion: true
     });
-  }, []);
+  }, [releaseWakeLock]);
 
   const handleResetForDemo = () => {
     // Hidden dev feature or "close modal" action essentially
