@@ -53,8 +53,9 @@ export function useTimerLogic() {
     setTimeLeft(DURATION);
   };
 
-  const handleComplete = useCallback(async () => {
-    await releaseWakeLock();
+  const handleComplete = useCallback(() => {
+    // Release wake lock in background (non-blocking)
+    releaseWakeLock();
     
     const now = new Date();
     localStorage.setItem(STORAGE_KEY, now.toISOString());
