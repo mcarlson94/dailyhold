@@ -26,33 +26,7 @@ export function useTimerLogic() {
     }
   }, []);
 
-  // Timer tick logic
-  useEffect(() => {
-    let interval: number;
-
-    if (status === 'running' && timeLeft > 0) {
-      interval = window.setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    } else if (status === 'running' && timeLeft === 0) {
-      handleComplete();
-    }
-
-    return () => window.clearInterval(interval);
-  }, [status, timeLeft]);
-
-  const handleStart = async () => {
-    await requestWakeLock();
-    setStatus('running');
-    setTimeLeft(DURATION);
-  };
-
-  const handleGiveUp = async () => {
-    await releaseWakeLock();
-    setStatus('idle');
-    setTimeLeft(DURATION);
-  };
-
+  // Define handleComplete before using it in useEffect
   const handleComplete = useCallback(() => {
     // Release wake lock in background (non-blocking)
     releaseWakeLock();
@@ -71,6 +45,33 @@ export function useTimerLogic() {
       disableForReducedMotion: true
     });
   }, [releaseWakeLock]);
+
+  // Timer tick logic
+  useEffect(() => {
+    let interval: number;
+
+    if (status === 'running' && timeLeft > 0) {
+      interval = window.setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+    } else if (status === 'running' && timeLeft === 0) {
+      handleComplete();
+    }
+
+    return () => window.clearInterval(interval);
+  }, [status, timeLeft, handleComplete]);
+
+  const handleStart = async () => {
+    await requestWakeLock();
+    setStatus('running');
+    setTimeLeft(DURATION);
+  };
+
+  const handleGiveUp = async () => {
+    await releaseWakeLock();
+    setStatus('idle');
+    setTimeLeft(DURATION);
+  };
 
   const handleResetForDemo = () => {
     // Hidden dev feature or "close modal" action essentially
