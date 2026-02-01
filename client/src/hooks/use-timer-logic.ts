@@ -20,13 +20,17 @@ export function useTimerLogic() {
 
   // Check initial state from local storage
   useEffect(() => {
-    const storedDate = localStorage.getItem(STORAGE_KEY);
-    if (storedDate) {
-      const date = parseISO(storedDate);
-      if (isSameDay(date, new Date())) {
-        setStatus('already-completed');
-        setCompletionDate(date);
+    try {
+      const storedDate = localStorage.getItem(STORAGE_KEY);
+      if (storedDate) {
+        const date = parseISO(storedDate);
+        if (isSameDay(date, new Date())) {
+          setStatus('already-completed');
+          setCompletionDate(date);
+        }
       }
+    } catch {
+      // localStorage not available (Safari private browsing) - continue without stored state
     }
   }, []);
 
@@ -41,7 +45,11 @@ export function useTimerLogic() {
     // Defer heavy operations to next frame so UI updates first
     requestAnimationFrame(() => {
       const now = new Date();
-      localStorage.setItem(STORAGE_KEY, now.toISOString());
+      try {
+        localStorage.setItem(STORAGE_KEY, now.toISOString());
+      } catch {
+        // localStorage not available (Safari private browsing) - continue without saving
+      }
       setCompletionDate(now);
       
       // Trigger celebration
