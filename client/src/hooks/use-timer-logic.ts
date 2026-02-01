@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { differenceInSeconds, startOfTomorrow, isSameDay, parseISO } from 'date-fns';
 import confetti from 'canvas-confetti';
 import { useWakeLock } from './use-wake-lock';
@@ -13,6 +13,10 @@ export function useTimerLogic() {
   const [timeLeft, setTimeLeft] = useState(DURATION);
   const [completionDate, setCompletionDate] = useState<Date | null>(null);
   const { requestWakeLock, releaseWakeLock } = useWakeLock();
+  
+  // Ref to track timeLeft inside interval without recreating it
+  const timeLeftRef = useRef(timeLeft);
+  timeLeftRef.current = timeLeft;
 
   // Check initial state from local storage
   useEffect(() => {
@@ -31,35 +35,44 @@ export function useTimerLogic() {
     // Release wake lock in background (non-blocking)
     releaseWakeLock();
     
-    const now = new Date();
-    localStorage.setItem(STORAGE_KEY, now.toISOString());
-    setCompletionDate(now);
+    // Update UI state first
     setStatus('completed');
     
-    // Trigger celebration
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#2d5446', '#ffffff', '#3e6b5a'],
-      disableForReducedMotion: true
+    // Defer heavy operations to next frame so UI updates first
+    requestAnimationFrame(() => {
+      const now = new Date();
+      localStorage.setItem(STORAGE_KEY, now.toISOString());
+      setCompletionDate(now);
+      
+      // Trigger celebration
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#2d5446', '#ffffff', '#3e6b5a'],
+        disableForReducedMotion: true
+      });
     });
   }, [releaseWakeLock]);
 
-  // Timer tick logic
+  // Timer tick logic - only depends on status, reads timeLeft from ref
   useEffect(() => {
-    let interval: number;
-
-    if (status === 'running' && timeLeft > 0) {
-      interval = window.setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    } else if (status === 'running' && timeLeft === 0) {
-      handleComplete();
-    }
+    if (status !== 'running') return;
+    
+    const interval = window.setInterval(() => {
+      const current = timeLeftRef.current;
+      if (current <= 1) {
+        // Timer complete
+        window.clearInterval(interval);
+        setTimeLeft(0);
+        handleComplete();
+      } else {
+        setTimeLeft(current - 1);
+      }
+    }, 1000);
 
     return () => window.clearInterval(interval);
-  }, [status, timeLeft, handleComplete]);
+  }, [status, handleComplete]);
 
   const handleStart = async () => {
     await requestWakeLock();

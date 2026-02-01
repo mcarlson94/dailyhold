@@ -41,9 +41,8 @@ export function TimerDisplay({ seconds, total }: TimerDisplayProps) {
 
         {/* Number Display */}
         <motion.div 
-          key={seconds}
-          initial={{ opacity: 0.5, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.15 }}
           className="text-6xl sm:text-7xl font-bold font-timer text-primary leading-none tracking-tighter z-10"
         >
           {seconds}
