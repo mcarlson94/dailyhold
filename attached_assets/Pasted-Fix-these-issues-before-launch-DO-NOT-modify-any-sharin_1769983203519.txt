@@ -1,0 +1,55 @@
+Fix these issues before launch. DO NOT modify any sharing functionality - the text sharing in completion-modal.tsx should stay exactly as is.
+
+1. In `client/index.html`:
+   - Add <title>DailyHold - One Minute. Every Day.</title> in the <head>
+   - Add <meta name="description" content="A simple daily challenge. Hold for one minute. Track your streak. Share your results.">
+   - Add these Open Graph tags:
+     <meta property="og:title" content="DailyHold - One Minute. Every Day.">
+     <meta property="og:description" content="A simple daily challenge. Hold for one minute. Share your results.">
+     <meta property="og:url" content="https://www.dailyhold.co">
+     <meta property="og:type" content="website">
+     <meta property="og:image" content="https://www.dailyhold.co/og-image.png">
+   - Add Twitter card tags:
+     <meta name="twitter:card" content="summary_large_image">
+     <meta name="twitter:title" content="DailyHold - One Minute. Every Day.">
+     <meta name="twitter:description" content="A simple daily challenge. Hold for one minute. Share your results.">
+     <meta name="twitter:image" content="https://www.dailyhold.co/og-image.png">
+   - REMOVE the giant Google Fonts link that loads 30+ fonts (the long href starting with "https://fonts.googleapis.com/css2?family=Architects+Daughter..."). The correct fonts are already loaded in index.css.
+   - Add these PWA/mobile tags:
+     <link rel="manifest" href="/manifest.json">
+     <meta name="theme-color" content="#2d5446">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+2. In `client/src/hooks/use-timer-logic.ts`:
+   - Wrap all localStorage.getItem() and localStorage.setItem() calls in try/catch blocks. If localStorage fails (Safari private browsing), the app should still work - just treat it as if there's no stored data.
+
+3. In `client/src/hooks/use-wake-lock.ts`:
+   - Remove all console.log statements for production
+
+4. Create `client/public/manifest.json` with:
+   {
+     "name": "DailyHold",
+     "short_name": "DailyHold",
+     "description": "One minute. Every day.",
+     "start_url": "/",
+     "display": "standalone",
+     "background_color": "#d4dfe6",
+     "theme_color": "#2d5446",
+     "icons": [
+       {
+         "src": "/favicon.png",
+         "sizes": "192x192",
+         "type": "image/png"
+       }
+     ]
+   }
+
+5. Create an OG image at `client/public/og-image.png`:
+   - Dimensions: 1200x630px
+   - Background color: #d4dfe6 (the app's background color)
+   - Center the logo from `attached_assets/ParentPresents_Best_Logo_(1)_1768523932340.png`
+   - Below the logo, add text "One Minute. Every Day." in the primary color #2d5446 using the Outfit font
+   - Keep it simple and clean
+
+DO NOT touch completion-modal.tsx or any sharing logic.
